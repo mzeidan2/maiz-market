@@ -1,194 +1,198 @@
-import React, { useMemo, useState } from "react";
-import { ShoppingCart, Search, Star, Truck, ShieldCheck, RefreshCcw } from "lucide-react";
-import "./style.css";
+import { useMemo, useState } from "react";
+import { ShoppingCart, Search, Star } from "lucide-react";
 
 const products = [
   {
     id: 1,
-    name: "Takis Blue Heat",
-    category: "Spicy Snacks",
-    price: 6.99,
+    name: "Premium Wireless Earbuds",
+    price: 79.99,
     rating: 4.8,
-    badge: "Best Seller",
-    image: "https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?q=80&w=1200&auto=format&fit=crop",
   },
   {
     id: 2,
-    name: "Samyang Buldak Ramen",
-    category: "International",
-    price: 8.99,
-    rating: 4.9,
-    badge: "Hot",
-    image: "https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=900&q=80",
+    name: "Luxury Coffee Mug",
+    price: 24.99,
+    rating: 4.7,
+    image:
+      "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?q=80&w=1200&auto=format&fit=crop",
   },
   {
     id: 3,
-    name: "Japanese Matcha KitKat",
-    category: "Candy",
-    price: 7.99,
-    rating: 4.7,
-    badge: "Imported",
-    image: "https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?auto=format&fit=crop&w=900&q=80",
+    name: "Smart Fitness Watch",
+    price: 129.99,
+    rating: 4.9,
+    image:
+      "https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=1200&auto=format&fit=crop",
   },
   {
     id: 4,
-    name: "Korean Honey Butter Chips",
-    category: "Imported Snacks",
-    price: 5.99,
+    name: "Portable Bluetooth Speaker",
+    price: 59.99,
     rating: 4.6,
-    badge: "Popular",
-    image: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 5,
-    name: "Prime Hydration",
-    category: "Drinks",
-    price: 3.99,
-    rating: 4.5,
-    badge: "Trending",
-    image: "https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 6,
-    name: "Ramune Japanese Soda",
-    category: "Drinks",
-    price: 4.49,
-    rating: 4.8,
-    badge: "Imported",
-    image: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 7,
-    name: "Dubai Chocolate Bar",
-    category: "Premium",
-    price: 12.99,
-    rating: 4.9,
-    badge: "Luxury",
-    image: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=900&q=80",
-  },
-  {
-    id: 8,
-    name: "Mystery Snack Box",
-    category: "Bundles",
-    price: 24.99,
-    rating: 5.0,
-    badge: "Bundle",
-    image: "https://images.unsplash.com/photo-1607082349566-187342175e2f?auto=format&fit=crop&w=900&q=80",
+    image:
+      "https://images.unsplash.com/photo-1589003077984-894e133dabab?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 export default function EcommerceStarterWebsite() {
-  const [query, setQuery] = useState("");
-  const [cart, setCart] = useState<any[]>([]);
+  const [search, setSearch] = useState("");
+  const [cart, setCart] = useState<number[]>([]);
 
   const filteredProducts = useMemo(() => {
-    return products.filter(
-      (product) =>
-        product.name.toLowerCase().includes(query.toLowerCase()) ||
-        product.category.toLowerCase().includes(query.toLowerCase())
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(search.toLowerCase())
     );
-  }, [query]);
-
-  const cartTotal = cart.reduce((sum, item) => sum + item.price, 0);
+  }, [search]);
 
   return (
-    <div className="site">
-      <header className="header">
-        <div className="logo">
-          <div className="logoBox">M</div>
-          <div>
-            <h2>Maiz Market</h2>
-            <p>Global snacks, drinks & essentials</p>
-          </div>
+    <div
+      style={{
+        minHeight: "100vh",
+        background: "#0f172a",
+        color: "white",
+        fontFamily: "Arial",
+      }}
+    >
+      <header
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "20px 40px",
+          borderBottom: "1px solid #1e293b",
+        }}
+      >
+        <h1 style={{ fontSize: "28px", fontWeight: "bold" }}>
+          Maiz Market
+        </h1>
+
+        <div style={{ position: "relative", width: "300px" }}>
+          <Search
+            size={18}
+            style={{
+              position: "absolute",
+              left: "10px",
+              top: "10px",
+              color: "#94a3b8",
+            }}
+          />
+
+          <input
+            placeholder="Search products..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            style={{
+              width: "100%",
+              padding: "10px 10px 10px 35px",
+              borderRadius: "10px",
+              border: "none",
+              outline: "none",
+            }}
+          />
         </div>
 
-        <nav>
-          <a href="#shop">Shop</a>
-          <a href="#why">Why Us</a>
-          <a href="#contact">Contact</a>
-        </nav>
-
-        <div className="cart">
-          <ShoppingCart size={20} />
-          <span>{cart.length}</span>
-          <strong>${cartTotal.toFixed(2)}</strong>
+        <div style={{ position: "relative" }}>
+          <ShoppingCart size={28} />
+          <span
+            style={{
+              position: "absolute",
+              top: "-8px",
+              right: "-8px",
+              background: "red",
+              borderRadius: "999px",
+              padding: "2px 7px",
+              fontSize: "12px",
+            }}
+          >
+            {cart.length}
+          </span>
         </div>
       </header>
 
-      <section className="hero">
-        <div>
-          <span className="pill">New Store Launch • Fast Delivery</span>
-          <h1>Snacks, drinks, and trending treats delivered fast.</h1>
-          <p>
-            Maiz Market brings popular snacks, imported candy, drinks, coffee,
-            and premium bundles in one clean online store.
-          </p>
-          <a href="#shop" className="mainBtn">Shop Products</a>
-        </div>
+      <section style={{ padding: "50px 40px" }}>
+        <h2
+          style={{
+            fontSize: "42px",
+            marginBottom: "10px",
+            fontWeight: "bold",
+          }}
+        >
+          Trending Products
+        </h2>
 
-        <div className="heroCard">
-          <img
-            src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?auto=format&fit=crop&w=1200&q=80"
-            alt="Maiz Market snacks"
-          />
-        </div>
-      </section>
+        <p style={{ color: "#94a3b8", marginBottom: "40px" }}>
+          Premium products curated for Maiz Market customers.
+        </p>
 
-      <section id="why" className="features">
-        <div>
-          <Truck />
-          <h3>Fast Shipping</h3>
-          <p>Quick delivery on snacks, drinks, and bundles.</p>
-        </div>
-        <div>
-          <ShieldCheck />
-          <h3>Secure Checkout</h3>
-          <p>Ready to connect with Stripe payments.</p>
-        </div>
-        <div>
-          <RefreshCcw />
-          <h3>Fresh Picks</h3>
-          <p>Trending products updated regularly.</p>
-        </div>
-      </section>
-
-      <section id="shop" className="shop">
-        <div className="shopTop">
-          <div>
-            <p className="smallTitle">Featured Products</p>
-            <h2>Shop Maiz Market</h2>
-          </div>
-
-          <div className="searchBox">
-            <Search size={18} />
-            <input
-              placeholder="Search snacks, drinks, bundles..."
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-            />
-          </div>
-        </div>
-
-        <div className="grid">
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit,minmax(250px,1fr))",
+            gap: "25px",
+          }}
+        >
           {filteredProducts.map((product) => (
-            <div className="product" key={product.id}>
-              <div className="imageWrap">
-                <img src={product.image} alt={product.name} />
-                <span>{product.badge}</span>
-              </div>
+            <div
+              key={product.id}
+              style={{
+                background: "#1e293b",
+                borderRadius: "18px",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={product.image}
+                alt={product.name}
+                style={{
+                  width: "100%",
+                  height: "240px",
+                  objectFit: "cover",
+                }}
+              />
 
-              <div className="productBody">
-                <p className="category">{product.category}</p>
-                <h3>{product.name}</h3>
+              <div style={{ padding: "20px" }}>
+                <h3 style={{ fontSize: "20px", marginBottom: "10px" }}>
+                  {product.name}
+                </h3>
 
-                <div className="rating">
-                  <Star size={16} />
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "5px",
+                    marginBottom: "12px",
+                  }}
+                >
+                  <Star size={16} fill="gold" color="gold" />
                   <span>{product.rating}</span>
                 </div>
 
-                <div className="priceRow">
-                  <strong>${product.price.toFixed(2)}</strong>
-                  <button onClick={() => setCart([...cart, product])}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <strong style={{ fontSize: "20px" }}>
+                    ${product.price}
+                  </strong>
+
+                  <button
+                    onClick={() =>
+                      setCart([...cart, product.id])
+                    }
+                    style={{
+                      background: "#2563eb",
+                      color: "white",
+                      border: "none",
+                      padding: "10px 15px",
+                      borderRadius: "10px",
+                      cursor: "pointer",
+                    }}
+                  >
                     Add to Cart
                   </button>
                 </div>
@@ -197,17 +201,6 @@ export default function EcommerceStarterWebsite() {
           ))}
         </div>
       </section>
-
-      <section className="cta">
-        <h2>Build your snack box today.</h2>
-        <p>Choose your favorite snacks, drinks, and premium treats.</p>
-        <a href="#shop">Start Shopping</a>
-      </section>
-
-      <footer id="contact">
-        <p>© 2026 Maiz Market. All rights reserved.</p>
-        <p>Contact: support@maizmarket.com</p>
-      </footer>
     </div>
   );
 }
